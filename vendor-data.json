@@ -1,0 +1,45 @@
+{
+  "name": "Gatus",
+  "description": "Gatus is a powerful, developer-friendly monitoring tool for checking the health of your services.",
+  "category": "Monitoring",
+  "logo": "https://github.com/TwiN/gatus/blob/master/.github/assets/logo.png",
+  "website": "https://github.com/TwiN/gatus",
+  "scripts": {
+    "install": "https://github.com/vedant-kakde/gatus-marketplace-imageless/raw/refs/heads/main/main/install.sh"
+  },
+  "options": {
+    "docker": true
+  },
+  "variables": [
+    {
+      "key": "PORT",
+      "type": "string",
+      "description": "Port for exposing Gatus dashboard (e.g., 8080).",
+      "required": true
+    },
+    {
+      "key": "GATUS_USERNAME",
+      "type": "string",
+      "description": "Username for the Gatus dashboard.",
+      "required": true
+    },
+    {
+      "key": "GATUS_PASSWORD",
+      "type": "string",
+      "description": "Password for the Gatus dashboard.",
+      "required": true
+    },
+    {
+      "key": "MONITORING_URL",
+      "type": "string",
+      "description": "The URL to monitor (e.g., https://example.com).",
+      "required": true
+    },
+    {
+      "key": "MONITORING_INTERVAL",
+      "type": "string",
+      "description": "The monitoring interval (e.g., 30s, 1m, 5m).",
+      "required": true
+    }
+  ]
+}
