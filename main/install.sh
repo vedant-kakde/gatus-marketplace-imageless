@@ -20,15 +20,21 @@ if ! command -v docker &>/dev/null; then
     curl -fsSL https://get.docker.com | sh
 fi
 
+# Install required tools for password hashing
+if ! command -v htpasswd &>/dev/null; then
+    echo -e "${GREEN}Installing Apache Utils (htpasswd)...${NC}"
+    sudo apt-get install apache2-utils -y
+fi
+
 # Check if required environment variables are set
 if [[ -z "$GATUS_USERNAME" || -z "$GATUS_PASSWORD" || -z "$MONITORING_URL" || -z "$MONITORING_INTERVAL" || -z "$PORT" ]]; then
     echo -e "${RED}Required environment variables are missing. Please ensure GATUS_USERNAME, GATUS_PASSWORD, MONITORING_URL, MONITORING_INTERVAL, and PORT are set.${NC}"
     exit 1
 fi
 
-# Create bcrypt hash of the password
+# Generate bcrypt hash of the password in Base64 format
 echo -e "${GREEN}Hashing the password...${NC}"
-HASHED_PASSWORD=$(echo -n "$GATUS_PASSWORD" | openssl passwd -6 -stdin)
+HASHED_PASSWORD=$(htpasswd -bnBC 10 "" "$GATUS_PASSWORD" | tr -d ':\n' | base64 | tr -d '\n')
 
 # Fetch public IP
 PUBLIC_IP=$(curl -s ifconfig.me)
